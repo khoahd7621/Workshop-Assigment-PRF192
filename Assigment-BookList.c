@@ -8,7 +8,7 @@
 int getUserChoice()
 {
 	int choice;
-    printf("\n==================MENU=======================");
+	printf("\n==================MENU=======================");
 	printf("\n| 1. Add a book into a list.       Press: 1 |");
 	printf("\n| 2. Print out all books in list.  Press: 2 |");
 	printf("\n| 3. Search a book.                Press: 3 |");
