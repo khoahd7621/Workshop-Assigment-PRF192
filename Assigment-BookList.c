@@ -7,10 +7,8 @@
 
 int getUserChoice()
 {
-	int check = 0;
 	int choice;
-	char after;
-    	printf("\n============= MENU BOOKCASE ==================");
+	printf("\n============= MENU BOOKCASE ==================");
 	printf("\n| 1. Add a book into bookcase      Press: 1 |");
 	printf("\n| 2. Print out all books           Press: 2 |");
 	printf("\n| 3. Search a book                 Press: 3 |");
@@ -21,60 +19,57 @@ int getUserChoice()
 	printf("\nEnter Your Choice: ");
 	do
 	{
-		if(scanf("%d%c", &choice, &after) !=2 || after !='\n')
-		{
-			printf("\nWrong input! Accept only integer! Enter again: ");
-			check = 1;
-			fflush(stdin);
-		}
-		else
-			check = 0;
+		choice = checkNumb();
+		if (choice == 0)
+			printf("Wrong choice! Enter again: ");
 	}
-	while (check == 1);
+	while (choice == 0);
 	return choice;
 }
 
 int getUpChoice()
 {
 	int choices;
-	int checks = 0;
-	char after;
 	printf("\nWhat part of book you wanna update?\n");
-	printf("Press 1 - To update title\n");
-	printf("Press 2 - To update quantity\n");
-	printf("Press 3 - To leave this function'\n");
+	printf(">>Press 1 - To update title\n");
+	printf(">>Press 2 - To update quantity\n");
+	printf(">>Press 3 - To leave this function'\n");
 	printf("\nEnter Your Choice: ");
 	do
 	{
-		if(scanf("%d%c", &choices, &after) !=2 || after !='\n')
-		{
-			printf("\nWrong input! Accept only integer! Enter again: ");
-			checks = 1;
-			fflush(stdin);
-		}
-		else
-			checks = 0;
+		choices = checkNumb();
+		if (choices == 0)
+			printf("Wrong choice! Enter again: ");
 	}
-	while (checks == 1);
+	while (choices == 0);
 	return choices;
+}
+
+int checkNumb()
+{
+	int num;
+	char term;
+	if(scanf("%d%c", &num, &term) != 2 || term != '\n')
+	{
+    		fflush(stdin);
+    		return 0;
+	}
+	else
+    		return num;
 }
 
 int checkChar(char s[])
 {
-	int i;
 	int length = strlen(s);
-	int check;
-	for (i = 0; i < length; i++)
-	{
-		if ((s[i] >= 0 && s[i] <= 31) || (s[i] >= 33 && s[i] <= 64) || (s[i] >= 91 && s[i] <= 96) || (s[i] >= 123 && s[i] <= 127))
-		{
-			check = 0;
-			break;
-		}
-		else
-			check = 1;
-	}
-	return check;
+	int check, count = 0;
+	int i;
+	for (i = 0; i <= length; i++)
+		if (s[i] == ' ')
+			count++;
+	if (count == length)
+		return check = 0;
+	else
+		return check = 1;
 }
 
 int isEmpty(int n)
@@ -131,7 +126,7 @@ void printList(char book[][MAXL], int quantity[], int n, int total)
 		printf("\nTitle: %s\n", book[i]);
 		printf("Quantity: %d\n", quantity[i]);
 	}
-	printf("\nTotal quantity book in bookcase: %d\n", total);
+	printf("\nTotal number of books in the current bookcase: %d\n", total);
 }
 
 void addBook(char books[], char book[][MAXL], int quantity[], int quantities, int *pn) 
@@ -180,15 +175,14 @@ int main()
 	int quantities;
 	int pos;
 	int userChoice, outMenu = 0;
-    	do
+	do
    	{
 		userChoice = getUserChoice();
         	switch(userChoice)
 		{
 			case 1:
 			{
-				int checkCh = 0, checkN = 0;
-				char after;
+				int checkCh;
 				printf("\nEnter information about the book:\n");
 				printf("Title of the book: ");
 				do
@@ -197,23 +191,18 @@ int main()
 					fflush(stdin);
 					checkCh = checkChar(books);
 					if (checkCh == 0)
-						printf("Wrong input! Only character! Enter title again: ");
+						printf("Error! There are no characters to identify! Enter title again: ");
 				}
 				while (checkCh == 0);
 				
 				printf("Quantity of the book: ");
 				do
 				{
-					if(scanf("%d%c", &quantities, &after) !=2 || after !='\n')
-					{
-						printf("\nWrong! Enter quantity of the book again: ");
-						checkN = 1;
-						fflush(stdin);
-					}
-					else
-						checkN = 0;
+					quantities = checkNumb();
+					if (quantities == 0)
+					printf("Error! Only integer are accepted! Enter quantity again: ");
 				}
-				while (checkN == 1);
+				while (quantities == 0);
 				total += quantities;					
 				if (total <= 100)
 				{				
@@ -223,7 +212,7 @@ int main()
 				}
 				else
 				{
-					printf("\nFaild! The bookcase not have enough space!\n");
+					printf("\nFaild! The bookcase is not have enough space!\n");
 					total -= quantities;
 				}
 		    		break;
@@ -245,7 +234,7 @@ int main()
 					nameStr(books);
 					pos = search(books, book, n);
 					if (pos < 0 || pos >= n)
-						printf("\nThis book is not existed!!\n");
+						printf("\nThis book is not existed!\n");
 					else
 					{
 						printf("\nFound it!\n");
@@ -268,70 +257,60 @@ int main()
 					else
 					{
 						printf("\nFound it!\n");
-						int ch, leave = 0;
+						int updateChoice, leave = 0;
 						do
 						{
-							ch = getUpChoice();
-							switch (ch)
+							updateChoice = getUpChoice();
+							switch (updateChoice)
 							{
 								case 1:
 								{
-									int checkCh = 0;
+									int checkCh;
 									char bookss[MAXL];
 									printf("\nEnter new title for book: ");
 									do
 									{
-									scanf("%[^\n]", bookss);
-									fflush(stdin);
-									checkCh = checkChar(books);
-									if (checkCh == 0)
-										printf("Wrong input! Only character! Enter title again: ");
+										scanf("%[^\n]", bookss);
+										fflush(stdin);
+										checkCh = checkChar(bookss);
+										if (checkCh == 0)
+											printf("Error! There are no characters to identify! Enter title again: ");
 									}
 									while (checkCh == 0);
 									nameStr(bookss);
 									strcpy(book[pos], bookss);
-									printf("\nUpdate Success!\n");
+									printf("\nUpdated success!\n");
 									break;
 								}
 								case 2:
 								{
-									int checkN = 0;
-									char after;
 									int cache = quantity[pos];
 									total -= quantity[pos];
 									int quantitiess;
-									printf("\nEnter new quantity for book: ");
-									
+									printf("\nEnter new quantity for book: ");									
 									do
 									{
-										if(scanf("%d%c", &quantitiess, &after) !=2 || after !='\n')
-										{
-											printf("\nWrong input! Accept only integer! Enter again: ");
-											checkN = 1;
-											fflush(stdin);
-										}
-										else
-											checkN = 0;
+										quantitiess = checkNumb();
+										if (quantitiess == 0)
+										printf("Error! Only integer are accepted! Enter quantity again: ");
 									}
-									while (checkN == 1);
-									
-									total += quantitiess;
-									
+									while (quantitiess == 0);									
+									total += quantitiess;									
 									if (total <= MAXN)
 									{
 										quantity[pos] = quantitiess;
-										printf("\nUpdate Success!\n");
+										printf("\nUpdated success!\n");
 									}
 									else
 									{
-										printf("\nFaild! The bookcase not have enough space!\n");
+										printf("\nFaild! The bookcase is not have enough space!\n");
 										total -= quantitiess;
 										total += cache;
 									}
 									break;
 								}
 								default:
-									if (ch == 3)
+									if (updateChoice == 3)
 										leave = 1;
 									else
 										printf("\nWrong Input! Enter again your choice!\n");
@@ -362,7 +341,7 @@ int main()
 		    		if (userChoice == 6)
 		    			outMenu = 1;
 		    		else 
-					printf("\n>>Wrong Input!!!\n");
+					printf("\n>>Wrong Input!");
 	    	}
 	}
 	while (outMenu == 0);
