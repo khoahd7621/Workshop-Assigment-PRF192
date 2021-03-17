@@ -49,11 +49,10 @@ int checkNumb()
 {
 	int num;
 	char term;
-	if(scanf("%d%c", &num, &term) != 2 || term != '\n')
-	{
-    		fflush(stdin);
+	scanf("%d%c", &num, &term);
+	fflush(stdin);
+	if(term != '\n')
     		return 0;
-	}
 	else
     		return num;
 }
@@ -61,12 +60,14 @@ int checkNumb()
 int checkChar(char s[])
 {
 	int length = strlen(s);
-	int check, count = 0;
+	int check, space = 0, enter = 0;
 	int i;
 	for (i = 0; i <= length; i++)
 		if (s[i] == ' ')
-			count++;
-	if (count == length)
+			space++;
+	if ((length == 1) && (s[length] == '\0'))
+		enter = 1;
+	if (space == length || enter == 1)
 		return check = 0;
 	else
 		return check = 1;
@@ -313,7 +314,7 @@ int main()
 									if (updateChoice == 3)
 										leave = 1;
 									else
-										printf("\nWrong Input! Enter again your choice!\n");
+										printf("Wrong choice! Enter again your choice!\n");
 							}
 						}
 						while (leave == 0);
@@ -336,12 +337,12 @@ int main()
 					else
 						removeBook(book, quantity, pos, &n, &total);
 				}
-				break;   
+				break;
 			default:
 		    		if (userChoice == 6)
 		    			outMenu = 1;
 		    		else 
-					printf("\n>>Wrong Input!");
+					printf("\nWrong Choice!");
 	    	}
 	}
 	while (outMenu == 0);
