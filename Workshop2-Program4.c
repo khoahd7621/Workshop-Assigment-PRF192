@@ -2,19 +2,19 @@
 
 #include <stdio.h>
 
-int main() {
+int main()
+{
+    int x, y;
     
-    int x, y, t;
-    
-    do {
+    do
+    {
         printf("Enter number x and y: ");
         scanf("%d%d", &x, &y);
-        t = x;
-        x = y;
-        y = t;
-        printf("x= %d, y= %d\n", x, y);
-       }
-    while ( x != 0 && y !=0);
-    
+        int t = x;
+            x = y;
+            y = t;
+        printf("x = %d, y = %d\n", x, y);
+    }
+    while (x != 0 && y !=0);
     return 0;
 }
