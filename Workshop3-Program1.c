@@ -22,7 +22,7 @@ int main ()
 	scanf("%d", &n);
 	printf("Prime numbers between 2 and %d are: ", n);
 	if (n <= 3)
-		printf("Error! Condition is not satisfied or between two numbers do not have integer.");
+		printf("Error! Condition is not satisfied or between 2 and 3 do not have prime!");
 	for (i = 3; i < n; i++)
 	{
 		s = prime(i);
