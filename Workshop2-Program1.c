@@ -12,19 +12,19 @@ int main()
     		switch (c)
 		{
 			case '+':
-				printf("%d + %d = %d\n", a, b, a + b);
+				printf("%d + %d = %d\n", a, b, a+b);
                 		break;
             		case '-':
-                		printf("%d - %d = %d\n", a, b, a - b);
+                		printf("%d - %d = %d\n", a, b, a-b);
                 		break;
             		case '*':
-				printf("%d * %d = %d\n", a, b, a * b);
+				printf("%d * %d = %d\n", a, b, a*b);
                 		break;
             		case '/':
-                		if ( b == 0)
+                		if (b == 0)
                     			printf("Cannot devide 0\n");
                 		else
-                    			printf("%d / %d = %d\n", a, b, a / b);
+                    			printf("%d / %d = %d\n", a, b, a/b);
                 		break;
 		}
 	return 0;
