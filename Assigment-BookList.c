@@ -152,15 +152,8 @@ void removeBook(char book[][MAXL], int quantity[],int pos, int *pn, int *total)
 	int i;
 	for (i = pos + 1; i < (*pn); i++)
 	{
-		char trsBook[MAXL];
-		strcpy(trsBook, book[i-1]);
 		strcpy(book[i-1], book[i]);
-		strcpy(book[i], trsBook);
-
-		int trsQuan;
-		trsQuan = quantity[i-1];
 		quantity[i-1] = quantity[i];
-		quantity[i] = trsQuan;
 	}
 	(*pn)--;
 	printf("\nThis book has been removed from bookcase successfully!\n");
